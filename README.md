@@ -1,3 +1,6 @@
+Requirements:  pyRMSD, scipy, numpy, sklearn, Biopython.
+
+
 Usage:
 
 gc \<folder\> [scores]
