@@ -1,6 +1,6 @@
 Usage:
 
-gc <folder> [scores]
+gc \<folder\> [scores]
 
 where "folder" contains folded decoys, and scores (optional argument) is the Rosetta score file.
 
