@@ -1,9 +1,7 @@
 Requirements:  pyRMSD, scipy, numpy, sklearn, Biopython.
 
 
-Usage:
-
-gc \<folder\> [scores]
+Usage:gc \<folder\> [scores]
 
 where "folder" contains folded decoys, and scores (optional argument) is the Rosetta score file.
 
