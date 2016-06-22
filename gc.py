@@ -41,7 +41,6 @@ class Work():
         self.n_res = self.DIH.shape[1]
 
         if self.scores_file != "":
-            # score.fsc, 2nd column
             self.scores = []
             scores_txt = open(self.scores_file, "rb").readlines()
             for line in scores_txt[1:]:
@@ -76,8 +75,6 @@ class Work():
             phipsi_list.append(phipsi)
             ca_all.append(ca_list)
 
-        # DIH = np.array(phipsi_list)
-        # CA = np.array(ca_all)
         n_res_total = len(phipsi_list[0])
         DIH = np.zeros((self.n_models, n_res_total, 2))
         CA = np.zeros((self.n_models, n_res_total, 3))
@@ -93,7 +90,7 @@ def align_models(CA):
     n_models = CA.shape[0]
     working_CA = np.copy(CA)
     sup=SVDSuperimposer()
-    # align to the first
+    
     ref_model = working_CA[0, :, :]
     rms_total = 0
 
@@ -115,7 +112,6 @@ def align_models(CA):
             rms_total += sup.get_rms()**2
             working_CA[i_model] = sup.get_transformed()
 
-    # get transformations back
     transformations = []
     for start_model, result_model in zip(CA, working_CA):
         sup.set(result_model, start_model)
@@ -181,7 +177,7 @@ def out_ensemble(work, ens, levels, prefix):
 
     ens_structure = PDB.Structure.Structure(" ")
     ens_name = prefix+"_{0:03d}_{1:03d}_{2:03d}_{3:02.2f}".format(min(residues), max(residues), len(residues), rms)
-    ser_atom_names = {"N", "CA", "C", "O", "CB", "OG", "CG"}
+    ala_atom_names = {"N", "CA", "C", "O", "CB"}
     bfac_base = 10
     for file_ind in support:
         file_name = work.pdb_files[file_ind]
@@ -200,7 +196,7 @@ def out_ensemble(work, ens, levels, prefix):
                 else:
                     bfac_mult = [i for i in range(len(levels)) if res_ind+offset in levels[i]][0]
                     for atom in reversed(residue.child_list):
-                        if atom.get_name() not in ser_atom_names:
+                        if atom.get_name() not in ala_atom_names:
                             residue.detach_child(atom.id)
                         else:
                             atom.set_bfactor(bfac_base*bfac_mult)
@@ -262,8 +258,7 @@ def evaluate_candidate(options, work, top_frag, candidate):
         n_class_support = len(class_support)
         if n_class_support < min_support:
             continue
-        # class_coords = pos[labels == label]
-        # std = np.std(class_coords[:,0]+1j*class_coords[:,1])
+        
         class_dist = dist.take(class_members,0).take(class_members,1)
         mean_dist = np.mean(squareform(class_dist))
         if work.use_scores:
@@ -271,7 +266,7 @@ def evaluate_candidate(options, work, top_frag, candidate):
             class_score = sum(class_scores)/(1+mean_dist)
         else:
             class_score = (-n_class_support)/(1+mean_dist)
-            #heapq.heappush(combined, (class_score, comb_ind, class_support, (cand_score,cand_ind,cand_support)))
+            
         heapq.heappush(combined, (class_score, comb_ind, class_support))
 
     if combined:
@@ -332,8 +327,6 @@ def grow_seed(args):
                 is_growing = False
             else:
                 cur_peptides = all_peptides[n_level]
-                # print 'Switched to ', 2 ** n_level, '-peptides'
-        #print growing
     print "Finished seed", seed
     print "Result:", growing
     return growing,bfac_level
