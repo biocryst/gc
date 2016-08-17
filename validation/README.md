@@ -45,6 +45,7 @@ Run Phaser MR software with either AMPLE of GC clusters.
 
 # phase_err_ample.py, phase_err_gc.py
 Calculate mean phase error of the Phaser solutions relative to the deposited model.
+
 NB: requires cctbx
 
 # solvent_content
@@ -52,6 +53,7 @@ The list of solvent content as reported for the native structure in the same ord
 
 # run_shelxe_ample.py, run_shelxe_gc.py
 Extend automatically the best Phaser solution in terms of MPE with SHELXE.
+
 NB: make sure you convert the experimental datasets into '*.hkl' format that containes intensities. See cif2mtz, mtz2hkl from CCP4.
 
 # collect_shelxe_ample.py, collect_shelxe_gc.py
