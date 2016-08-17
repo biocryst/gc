@@ -1,0 +1,11 @@
+-database /usr/local/xray/rosetta/rosetta_database
+-in:file:fasta ../t001_.fasta
+-in:file:frag3 ../t001_.200.3mers
+-in:file:frag9 ../t001_.200.9mers
+-abinitio:relax
+-relax::fast
+-abinitio::rg_reweight 0.5
+-abinitio::rsd_wt_helix 0.5
+-abinitio::rsd_wt_loop 0.5
+-out:nstruct 500
+-out:pdb
