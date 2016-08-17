@@ -21,13 +21,12 @@ Run Rosetta AbInitio folding for the test set.
 # folding.args
 Standard parameters used in Rosetta folding.
 
-# run_ample_clusters.py
-Calculate clusters by AMPLE. 
-NB: To run it much faster, modify AMPLE source code to stop after producing the clusters and do not attempt MR search. 
-NB2: All output clusters that do not start with "polya" should be removed for further analysis, as they are redundant in Ca RMSD and sequence coverage.
+# run_ample_clusters.py, run_gc_clusters.py
+Calculate clusters by AMPLE and GC. 
 
-# run_gc_clusters.py
-Calculate clusters by GC.
+NB: To run it much faster, modify AMPLE source code to stop after producing the clusters and do not attempt MR search. 
+
+NB2: All output clusters that do not start with "polya" should be removed for further analysis, as they are redundant in Ca RMSD and sequence coverage.
 
 # filter_clusters.py
 Remove clusters produced by either method that are less than 18 residues long.
